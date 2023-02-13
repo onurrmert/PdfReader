@@ -1,5 +1,6 @@
 package com.example.pdfreader.Adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pdfreader.Model.PdfModel
 import com.example.pdfreader.R
 import com.example.pdfreader.databinding.PdfRowBinding
+import com.pspdfkit.configuration.activity.PdfActivityConfiguration
+import com.pspdfkit.ui.PdfActivity
 
 class PdfAdapter (val pdfList : ArrayList<PdfModel>) : RecyclerView.Adapter<PdfAdapter.PdfViewHolder>(){
 
@@ -26,6 +29,22 @@ class PdfAdapter (val pdfList : ArrayList<PdfModel>) : RecyclerView.Adapter<PdfA
     }
 
     override fun onBindViewHolder(holder: PdfViewHolder, position: Int) {
-        TODO("Not yet implemented")
+
+        holder.binding.textView.setText(pdfList.get(position).pdfName)
+
+
+    }
+
+    private fun showPdf(pdfModel: PdfModel, context: Context){
+
+        val uri = pdfModel.pdfUri
+
+        val config = PdfActivityConfiguration.Builder(context).build()
+
+        try {
+            PdfActivity.showDocument(context, uri, null, config)
+        }catch (e : Exception){
+            println("hata: " + e.localizedMessage)
+        }
     }
 }
