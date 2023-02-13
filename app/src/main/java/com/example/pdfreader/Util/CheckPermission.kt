@@ -27,7 +27,7 @@ class CheckPermission {
                     }
 
                     override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
-                        Toast.makeText(context, "izin vermek zorundasınız", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "You must give permission to use the app", Toast.LENGTH_SHORT).show()
                     }
 
                     override fun onPermissionRationaleShouldBeShown(

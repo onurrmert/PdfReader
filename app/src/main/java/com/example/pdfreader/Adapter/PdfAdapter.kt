@@ -30,9 +30,15 @@ class PdfAdapter (val pdfList : ArrayList<PdfModel>) : RecyclerView.Adapter<PdfA
 
     override fun onBindViewHolder(holder: PdfViewHolder, position: Int) {
 
-        holder.binding.textView.setText(pdfList.get(position).pdfName)
+        holder.binding.textPdf.setText(pdfList.get(position).pdfName)
 
+        holder.binding.textPdf.setOnClickListener {
+            showPdf(pdfList.get(position), holder.itemView.context)
+        }
 
+        holder.binding.recyclerRow.setOnClickListener {
+            showPdf(pdfList.get(position), holder.itemView.context)
+        }
     }
 
     private fun showPdf(pdfModel: PdfModel, context: Context){

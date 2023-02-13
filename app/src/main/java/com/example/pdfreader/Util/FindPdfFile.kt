@@ -33,7 +33,7 @@ class FindPdfFile {
                 if (singlePdf.isDirectory && !singlePdf.isHidden){
                     pdfFileList.addAll(findFile(singlePdf))
                 }else{
-                    if (singlePdf.name.endsWith(".pdf")){ //istediğimiz soay türünün uzantısını yazıyoruz .mp3,.jpg
+                    if (singlePdf.name.endsWith(".pdf")){
                         pdfFileList.add(singlePdf)
                     }
                 }

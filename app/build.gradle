@@ -1,10 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-
-    //hilt
-    id("com.google.dagger.hilt.android")
-    id "kotlin-kapt"
 }
 
 android {
@@ -37,10 +33,6 @@ android {
     buildFeatures{
         viewBinding = true
     }
-    //hilt
-    kapt {
-        correctErrorTypes = true
-    }
 }
 
 dependencies {
@@ -61,8 +53,4 @@ dependencies {
 
     //Adding Swipe Refresh Layout Dependency
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-
-    //hilt
-    implementation("com.google.dagger:hilt-android:2.44")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
 }

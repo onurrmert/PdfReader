@@ -1,26 +1,18 @@
 package com.example.pdfreader
 
-import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.pdfreader.Adapter.PdfAdapter
 import com.example.pdfreader.Model.PdfModel
 import com.example.pdfreader.ViewModel.MainViewModel
 import com.example.pdfreader.databinding.ActivityMainBinding
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.single.PermissionListener
-import com.pspdfkit.configuration.activity.PdfActivityConfiguration
-import com.pspdfkit.ui.PdfActivity
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding : ActivityMainBinding
 
     private val viewmodel by lazy {
         ViewModelProvider(this, defaultViewModelProviderFactory).get(MainViewModel::class.java)
@@ -28,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         getPdf()
@@ -39,11 +31,12 @@ class MainActivity : AppCompatActivity() {
         viewmodel.checkPermission1(this@MainActivity, this)
 
         viewmodel.pdfList.observe(this, Observer {
-
+            initRecycler(it)
         })
     }
 
     private fun initRecycler(pdfList: ArrayList<PdfModel>){
-
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.adapter = PdfAdapter(pdfList)
     }
 }
