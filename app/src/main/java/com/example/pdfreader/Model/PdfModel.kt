@@ -4,5 +4,6 @@ import android.net.Uri
 
 data class PdfModel(
     val pdfName:String,
-    val pdfUri: Uri
+    val pdfUri: Uri,
+    val pdfLastModified: String
 )

@@ -1,5 +1,6 @@
 package com.example.pdfreader.Adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,7 @@ import com.example.pdfreader.databinding.PdfRowBinding
 import com.pspdfkit.configuration.activity.PdfActivityConfiguration
 import com.pspdfkit.ui.PdfActivity
 
-class PdfAdapter (val pdfList : ArrayList<PdfModel>) : RecyclerView.Adapter<PdfAdapter.PdfViewHolder>(){
+class PdfAdapter (val pdfList : List<PdfModel>) : RecyclerView.Adapter<PdfAdapter.PdfViewHolder>(){
 
     class PdfViewHolder(itemView:View) : RecyclerView.ViewHolder(itemView){
         val binding = PdfRowBinding.bind(itemView)
@@ -28,9 +29,12 @@ class PdfAdapter (val pdfList : ArrayList<PdfModel>) : RecyclerView.Adapter<PdfA
         return pdfList.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: PdfViewHolder, position: Int) {
 
         holder.binding.textPdf.setText(pdfList.get(position).pdfName)
+
+        holder.binding.textModified.setText(pdfList.get(position).pdfLastModified)
 
         holder.binding.textPdf.setOnClickListener {
             showPdf(pdfList.get(position), holder.itemView.context)
@@ -50,7 +54,7 @@ class PdfAdapter (val pdfList : ArrayList<PdfModel>) : RecyclerView.Adapter<PdfA
         try {
             PdfActivity.showDocument(context, uri, null, config)
         }catch (e : Exception){
-            println("hata: " + e.localizedMessage)
+            println("error: " + e.localizedMessage)
         }
     }
 }

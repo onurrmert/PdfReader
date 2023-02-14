@@ -16,8 +16,6 @@ class MainViewModel : ViewModel(){
 
         CheckPermission.checkExternalPermission(activity.applicationContext)
 
-        pdfList
-
         CheckPermission.pdfList.observe(lifecycleOwner, Observer {
             pdfList.value = it
         })

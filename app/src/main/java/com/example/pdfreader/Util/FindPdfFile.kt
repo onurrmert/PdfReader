@@ -2,22 +2,26 @@ package com.example.pdfreader.Util
 
 import android.net.Uri
 import android.os.Environment
-import androidx.lifecycle.MutableLiveData
 import com.example.pdfreader.Model.PdfModel
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class FindPdfFile {
 
     companion object{
-
-        val pdfList = MutableLiveData<ArrayList<PdfModel>>()
 
         fun getPdf() : ArrayList<PdfModel>{
 
             val liste = ArrayList<PdfModel>()
 
             findFile(Environment.getExternalStorageDirectory()).forEach {
-                liste.add(PdfModel(it.name, Uri.fromFile(it)))
+                val lastModified = Date(it.lastModified())
+                val formatter = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
+                val formattedDateString: String = formatter.format(lastModified)
+
+                liste.add(PdfModel(it.name, Uri.fromFile(it), formattedDateString))
             }
             return liste
         }

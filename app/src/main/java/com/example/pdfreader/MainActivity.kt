@@ -26,6 +26,12 @@ class MainActivity : AppCompatActivity() {
         getPdf()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        refresh()
+    }
+
     private fun getPdf(){
 
         viewmodel.checkPermission1(this@MainActivity, this)
@@ -35,8 +41,16 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun initRecycler(pdfList: ArrayList<PdfModel>){
+    private fun refresh(){
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = false
+            getPdf()
+        }
+    }
+
+    private fun initRecycler(pdfList: List<PdfModel>){
+        val list = pdfList.sortedByDescending { it.pdfLastModified }
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = PdfAdapter(pdfList)
+        binding.recyclerView.adapter = PdfAdapter(list)
     }
 }
